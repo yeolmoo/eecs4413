@@ -1,6 +1,12 @@
 package com.evstore.ecommerce.user;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -42,4 +48,5 @@ public class User {
 
     public String getUsername() { return username; }
     public String getPassword() { return password; }
+    public Role getRole() { return role; }
 }
