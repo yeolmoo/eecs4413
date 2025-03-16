@@ -7,186 +7,196 @@ import java.util.Set;
 
 @Entity
 public class Vehicle {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String description;
-    private String vehicleCondition;
-    private BigDecimal price;
-    private int stock;
-    private BigDecimal mileage;
-    private String brand;
-    private String shape;
-    private String model;
-    private int modelYear;
-    private boolean hotDeal;
-    private String discount;
-    private boolean havingHistory;
-    @OneToMany(mappedBy = "vehicle")
-    @JsonManagedReference // used to handle bidirectional relationship - parent side (break circular reference)
-    private Set<VehicleHistory> histories;
-    @OneToMany(mappedBy = "vehicle")
-    @JsonManagedReference
-    private Set<CustomerReview> reviews;
-    private String vehicleImg;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String name;
+	private String description;
+	private String vehicleCondition;
+	private BigDecimal price;
+	private int stock;
+	private BigDecimal mileage;
+	private String brand;
+	private String shape;
+	private String model;
+	private int modelYear;
+	private boolean hotDeal;
+	private BigDecimal discount; 
+	private boolean havingHistory;
 
-    public Vehicle() {
-    }
+	@OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY) 
+	@JsonManagedReference
+	private Set<VehicleHistory> histories;
 
-    public Vehicle(int id, String name, String description, String vehicleCondition, BigDecimal price, int stock, BigDecimal mileage, String brand, String shape, String model, int modelYear, boolean hotDeal, String discount, boolean havingHistory, Set<VehicleHistory> histories, Set<CustomerReview> reviews, String vehicleImg) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.vehicleCondition = vehicleCondition;
-        this.price = price;
-        this.stock = stock;
-        this.mileage = mileage;
-        this.brand = brand;
-        this.shape = shape;
-        this.model = model;
-        this.modelYear = modelYear;
-        this.hotDeal = hotDeal;
-        this.discount = discount;
-        this.havingHistory = havingHistory;
-        this.histories = histories;
-        this.reviews = reviews;
-        this.vehicleImg = vehicleImg;
-    }
+	@OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY) 
+	@JsonManagedReference
+	private Set<CustomerReview> reviews;
 
-    public int getId() {
-        return id;
-    }
+	private String vehicleImg;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public boolean isHavingHistory() { 
+		return havingHistory;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Vehicle() {
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Vehicle(int id, String name, String description, String vehicleCondition, BigDecimal price, int stock,
+			BigDecimal mileage, String brand, String shape, String model, int modelYear, boolean hotDeal,
+			BigDecimal discount, boolean havingHistory, Set<VehicleHistory> histories, Set<CustomerReview> reviews,
+			String vehicleImg) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.vehicleCondition = vehicleCondition;
+		this.price = price;
+		this.stock = stock;
+		this.mileage = mileage;
+		this.brand = brand;
+		this.shape = shape;
+		this.model = model;
+		this.modelYear = modelYear;
+		this.hotDeal = hotDeal;
+		this.discount = discount;
+		this.havingHistory = havingHistory;
+		this.histories = histories;
+		this.reviews = reviews;
+		this.vehicleImg = vehicleImg;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getVehicleCondition() {
-        return vehicleCondition;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setVehicleCondition(String vehicleCondition) {
-        this.vehicleCondition = vehicleCondition;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public int getStock() {
-        return stock;
-    }
+	public String getVehicleCondition() {
+		return vehicleCondition;
+	}
 
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
+	public void setVehicleCondition(String vehicleCondition) {
+		this.vehicleCondition = vehicleCondition;
+	}
 
-    public BigDecimal getMileage() {
-        return mileage;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setMileage(BigDecimal mileage) {
-        this.mileage = mileage;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public String getBrand() {
-        return brand;
-    }
+	public int getStock() {
+		return stock;
+	}
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 
-    public String getShape() {
-        return shape;
-    }
+	public BigDecimal getMileage() {
+		return mileage;
+	}
 
-    public void setShape(String shape) {
-        this.shape = shape;
-    }
+	public void setMileage(BigDecimal mileage) {
+		this.mileage = mileage;
+	}
 
-    public String getModel() {
-        return model;
-    }
+	public String getBrand() {
+		return brand;
+	}
 
-    public void setModel(String model) {
-        this.model = model;
-    }
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
-    public int getModelYear() {
-        return modelYear;
-    }
+	public String getShape() {
+		return shape;
+	}
 
-    public void setModelYear(int modelYear) {
-        this.modelYear = modelYear;
-    }
+	public void setShape(String shape) {
+		this.shape = shape;
+	}
 
-    public boolean getHotDeal() {
-        return hotDeal;
-    }
+	public String getModel() {
+		return model;
+	}
 
-    public void setHotDeal(boolean hotDeal) {
-        this.hotDeal = hotDeal;
-    }
+	public void setModel(String model) {
+		this.model = model;
+	}
 
-    public String getDiscount() {
-        return discount;
-    }
+	public int getModelYear() {
+		return modelYear;
+	}
 
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
+	public void setModelYear(int modelYear) {
+		this.modelYear = modelYear;
+	}
 
-    public boolean getHavingHistory() {
-        return havingHistory;
-    }
+	public boolean getHotDeal() {
+		return hotDeal;
+	}
 
-    public void setHavingHistory(boolean havingHistory) {
-        this.havingHistory = havingHistory;
-    }
+	public void setHotDeal(boolean hotDeal) {
+		this.hotDeal = hotDeal;
+	}
 
-    public Set<VehicleHistory> getHistories() {
-        return histories;
-    }
+	public BigDecimal getDiscount() {
+		return discount;
+	}
 
-    public void setHistories(Set<VehicleHistory> histories) {
-        this.histories = histories;
-    }
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
 
-    public Set<CustomerReview> getReviews() {
-        return reviews;
-    }
+	public boolean getHavingHistory() {
+		return havingHistory;
+	}
 
-    public void setReviews(Set<CustomerReview> reviews) {
-        this.reviews = reviews;
-    }
+	public void setHavingHistory(boolean havingHistory) {
+		this.havingHistory = havingHistory;
+	}
 
-    public String getVehicleImg() {
-        return vehicleImg;
-    }
+	public Set<VehicleHistory> getHistories() {
+		return histories;
+	}
 
-    public void setVehicleImg(String vehicleImg) {
-        this.vehicleImg = vehicleImg;
-    }
+	public void setHistories(Set<VehicleHistory> histories) {
+		this.histories = histories;
+	}
+
+	public Set<CustomerReview> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Set<CustomerReview> reviews) {
+		this.reviews = reviews;
+	}
+
+	public String getVehicleImg() {
+		return vehicleImg;
+	}
+
+	public void setVehicleImg(String vehicleImg) {
+		this.vehicleImg = vehicleImg;
+	}
 }

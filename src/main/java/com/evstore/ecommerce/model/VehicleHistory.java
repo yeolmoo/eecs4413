@@ -8,15 +8,18 @@ import java.util.Date;
 @Entity
 
 public class VehicleHistory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String description;
-    private Date recordDate;
-    @ManyToOne
-    @JoinColumn(name = "vehicle_id") // foreign key
-    @JsonBackReference // used to handle bidirectional relationship - child side
-    private Vehicle vehicle;
+	  @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private int id;
+	    private String description;
+
+	    @Temporal(TemporalType.TIMESTAMP) 
+	    private Date recordDate;
+
+	    @ManyToOne
+	    @JoinColumn(name = "vehicle_id") 
+	    @JsonBackReference
+	    private Vehicle vehicle;
 
     public VehicleHistory() {
     }

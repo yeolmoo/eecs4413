@@ -3,6 +3,8 @@ package com.evstore.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 import java.util.Date;
 
@@ -13,12 +15,14 @@ public class CustomerReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
+    @Min(1) @Max(5)
     private int rating;
     private String reviewText;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date reviewDate;
     @ManyToOne
     @JoinColumn(name = "vehicle_id") // foreign key
-    @JsonBackReference // used to handle bidirectional relationship - child side
+    @JsonIgnore 
     private Vehicle vehicle;
 
     public CustomerReview() {

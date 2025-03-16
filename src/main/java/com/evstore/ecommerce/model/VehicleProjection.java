@@ -14,7 +14,7 @@ public interface VehicleProjection {
     String getModel();
     int getModelYear();
     boolean getHotDeal();
-    String getDiscount();
+    BigDecimal getDiscount();
     String getVehicleImg();
-    String getMileage(); // only used for sorting, not displaying
+    BigDecimal getMileage(); // only used for sorting, not displaying
 }
