@@ -2,23 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Available Vehicles</title>
+    <title>EV Store</title>
+    <style>
+        #chatbox { position: fixed; bottom: 10px; right: 10px; width: 300px; height: 400px; background: white; border: 1px solid black; display: none; }
+        #chatbox-messages { height: 350px; overflow-y: scroll; padding: 10px; }
+        #chatbox-input { width: 80%; }
+        #chatbox-toggle { position: fixed; bottom: 10px; right: 320px; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <h1>Available Vehicles</h1>
+    <h1>Welcome to EV Store</h1>
 
-    <div th:if="${session.user != null}">
-        <p>Welcome, <span th:text="${session.user.username}"></span>!</p>
-        <a href="/auth/logout">Log Out</a>
+    <!-- links -->
+    <div>
+        <a href="/products">Browse Products</a> |
+      
     </div>
 
-    <div th:if="${session.user == null}">
+     <!-- change if login -->
+    <div th:if="${session.loggedInUser}">
+        <a href="/dashboard">Dashboard</a> |
+        <a href="/auth/logout">Logout</a>
+    </div>
+    <div th:unless="${session.loggedInUser}">
         <a href="/auth/login">Sign In</a> |
         <a href="/auth/register">Register</a>
     </div>
 
     <hr>
 
+    
+    <!-- Available vehicles -->
+    <h2>Available Vehicles</h2>
     <div th:if="${vehicles.isEmpty()}">
         <p>No vehicles available.</p>
     </div>
@@ -26,11 +41,45 @@
     <div th:if="${!vehicles.isEmpty()}">
         <ul>
             <li th:each="vehicle : ${vehicles}">
-                <img th:src="${vehicle.getVehicleImg()}" alt="Vehicle Image" width="100">
-                <strong th:text="${vehicle.getName()}"></strong> - $<span th:text="${vehicle.getPrice()}"></span>
-                <p th:text="${vehicle.getShape()} + ', ' + ${vehicle.getBrand()} + ', ' + ${vehicle.getModelYear()}"></p>
+                <img th:src="${vehicle.vehicleImg}" alt="Vehicle Image" width="100">
+                <strong th:text="${vehicle.name}"></strong> - $<span th:text="${vehicle.price}"></span>
+                <p th:text="${vehicle.shape} + ', ' + ${vehicle.brand} + ', ' + ${vehicle.modelYear}"></p>
             </li>
         </ul>
     </div>
+
+    <!-- Chatbot ui -->
+    <button id="chatbox-toggle">Chat with Us!</button>
+    <div id="chatbox">
+        <div id="chatbox-messages"></div>
+        <input type="text" id="chatbox-input" placeholder="Type a message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        document.getElementById("chatbox-toggle").onclick = function() {
+            let chatbox = document.getElementById("chatbox");
+            chatbox.style.display = (chatbox.style.display === "none") ? "block" : "none";
+        };
+
+        function sendMessage() {
+            let message = document.getElementById("chatbox-input").value;
+            let chatboxMessages = document.getElementById("chatbox-messages");
+
+            chatboxMessages.innerHTML += `<p><b>You:</b> ${message}</p>`;
+
+            fetch("/chatbot/message", { 
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `message=${encodeURIComponent(message)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                chatboxMessages.innerHTML += `<p><b>Bot:</b> ${data}</p>`;
+            });
+
+            document.getElementById("chatbox-input").value = "";
+        }
+    </script>
 </body>
 </html>
