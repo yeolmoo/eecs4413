@@ -1,7 +1,6 @@
 package com.evstore.ecommerce.model;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 // This interface is used to return a subset of fields when getting a set of vehicles
 public interface VehicleProjection {

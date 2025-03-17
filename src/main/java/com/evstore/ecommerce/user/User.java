@@ -1,31 +1,37 @@
 package com.evstore.ecommerce.user;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users") // This maps to MySQL "users" table
-public class User {
+public class User implements UserDetails { 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+    @Column(unique = true)
     private String username;
 
-    @NotBlank
-    @Email
+    @Column(unique = true)
     private String email;
 
-    @NotBlank
-    @Size(min = 6)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role; // USER or ADMIN
+    private Role role;
 
     public enum Role {
         USER, ADMIN
@@ -42,4 +48,30 @@ public class User {
 
     public String getUsername() { return username; }
     public String getPassword() { return password; }
+    public Role getRole() { return role; }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
