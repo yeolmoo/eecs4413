@@ -1,5 +1,6 @@
 package com.evstore.ecommerce.model;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +25,8 @@ public class Cart {
     private int quanity; // total items in cart
 
     
-    private double totalPrice; // total price of all items in cart.
+    private BigDecimal totalPrice; // total price of all items in cart.
+
 
     @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CartItem> cartItems = new HashSet<>();
@@ -33,11 +35,13 @@ public class Cart {
         
     }
 
-    public Cart(int quanity, double totalPrice, Set<CartItem> cartItems) {
+    public Cart(int quanity, BigDecimal totalPrice, Set<CartItem> cartItems) {
         this.quanity = quanity;
         this.totalPrice = totalPrice;
         this.cartItems = cartItems;
     }
+
+   
 
     public Long getId() {
         return id;
@@ -66,14 +70,16 @@ public class Cart {
         this.quanity = quanity;
     }
 
-
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+
+   
 
 
     public Set<CartItem> getCartItems() {

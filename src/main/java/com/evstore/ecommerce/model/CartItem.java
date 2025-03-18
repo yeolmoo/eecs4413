@@ -1,5 +1,7 @@
 package com.evstore.ecommerce.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -18,16 +20,20 @@ public class CartItem {
     private Cart cart;
 
 
-    private int quanity; 
+    private int quanity;
+    
+    private BigDecimal price;
+
 
     public CartItem(){}
-    
-    
-    public CartItem(Vehicle car, Cart cart, int quanity) {
+
+    public CartItem(Vehicle car, Cart cart, int quanity, BigDecimal price) {
         this.car = car;
         this.cart = cart;
         this.quanity = quanity;
+        this.price = price;
     }
+
 
     public void setId(Long id) {
         this.id = id;
@@ -55,6 +61,14 @@ public class CartItem {
 
     public void setCar(Vehicle car) {
         this.car = car;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
 }
