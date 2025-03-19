@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -16,13 +17,14 @@ public class CustomerReview {
     private int id;
     private String username;
     @Min(1) @Max(5)
+    @NotNull(message = "Rating is required")
     private int rating;
     private String reviewText;
     @Temporal(TemporalType.TIMESTAMP)
     private Date reviewDate;
     @ManyToOne
     @JoinColumn(name = "vehicle_id") // foreign key
-    @JsonIgnore 
+    @JsonBackReference
     private Vehicle vehicle;
 
     public CustomerReview() {

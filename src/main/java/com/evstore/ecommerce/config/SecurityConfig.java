@@ -35,12 +35,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
             .csrf(csrf -> csrf.disable()) 
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/auth/login", "/auth/register", "/register", "/products", "/home").permitAll()
-                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN") 
-                .anyRequest().authenticated()  
-            )
+//            .authorizeHttpRequests(auth -> auth
+//                .requestMatchers("/", "/auth/login", "/auth/register", "/register", "/products", "/home").permitAll()
+//                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+//                .requestMatchers("/admin/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//            )
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll())
             .formLogin(login -> login
                 .loginPage("/auth/login")
                 .defaultSuccessUrl("/home", true) 

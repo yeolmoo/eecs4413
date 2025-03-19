@@ -5,7 +5,7 @@ INSERT INTO vehicle (name, description, vehicle_condition, price, stock, mileage
 VALUES ('Chevrolet Bolt', 'Compact electric car with excellent range', 'USED', 34999.99, 8, 230.3, 'CHEVROLET', 'HATCHBACK', 'Bolt', 2022, FALSE, TRUE, 'https://di-uploads-pod1.dealerinspire.com/dalebenetchevy/uploads/2023/05/2023-Chevy-Bolt-EV-1LT-Model-Left.jpg');
 
 INSERT INTO vehicle (name, description, vehicle_condition, price, stock, mileage, brand, shape, model, model_year, hot_deal, discount, having_history, vehicle_img)
-VALUES ('Tesla Model 3', 'Affordable electric sedan with advanced technology and performance', 'NEW', 42999.99, 5, 250.0, 'TESLA', 'SEDAN', 'Model 3', 2023, TRUE, 0.1,, FALSE, 'https://www.tesla.com/ownersmanual/images/GUID-B5641257-9E85-404B-9667-4DA5FDF6D2E7-online-en-US.png');
+VALUES ('Tesla Model 3', 'Affordable electric sedan with advanced technology and performance', 'NEW', 42999.99, 5, 250.0, 'TESLA', 'SEDAN', 'Model 3', 2023, TRUE, 0.1, FALSE, 'https://www.tesla.com/ownersmanual/images/GUID-B5641257-9E85-404B-9667-4DA5FDF6D2E7-online-en-US.png');
 
 INSERT INTO vehicle (name, description, vehicle_condition, price, stock, mileage, brand, shape, model, model_year, hot_deal, discount, having_history, vehicle_img)
 VALUES ('Rivian R1T', 'All-electric pickup truck with off-road capabilities', 'NEW', 74999.99, 4, 150.0, 'RIVIAN', 'PICKUP', 'R1T', 2023, TRUE, 0.15, FALSE, 'https://media.rivian.com/rivian-main/image/upload/ar_32:15,c_crop/rivian-com/r1t/compare/r1t-dual_agrztl.webp');
