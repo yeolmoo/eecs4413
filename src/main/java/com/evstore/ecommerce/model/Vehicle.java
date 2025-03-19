@@ -3,7 +3,9 @@ package com.evstore.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 public class Vehicle {
@@ -24,19 +26,15 @@ public class Vehicle {
 	private BigDecimal discount; 
 	private boolean havingHistory;
 
-	@OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY) 
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Set<VehicleHistory> histories;
 
-	@OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY) 
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Set<CustomerReview> reviews;
 
 	private String vehicleImg;
-
-	public boolean isHavingHistory() { 
-		return havingHistory;
-	}
 
 	public Vehicle() {
 	}

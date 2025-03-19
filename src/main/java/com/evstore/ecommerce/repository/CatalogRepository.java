@@ -14,11 +14,13 @@ import java.util.Optional;
 @Repository
 public interface CatalogRepository extends JpaRepository<Vehicle, Integer> {
 
+
+
 	List<VehicleProjection> findAllByOrderById();
 
 	// Getting additional details from tables with foreign key
 	@Query("SELECT v FROM Vehicle v LEFT JOIN FETCH v.histories LEFT JOIN FETCH v.reviews WHERE v.id = :id")
-	Optional<Vehicle> findWithDetailsById(@Param("id") int id);
+	Optional<Vehicle> findWithDetailsById(int id);
 
 	@Query("SELECT DISTINCT v.brand FROM Vehicle v")
 	List<String> findDistinctBrands();
@@ -37,6 +39,7 @@ public interface CatalogRepository extends JpaRepository<Vehicle, Integer> {
 			@Param("modelYear") Integer modelYear, @Param("havingHistory") Boolean havingHistory,
 			@Param("vehicleCondition") String vehicleCondition);
 
-	@Query("SELECT v FROM Vehicle v WHERE v.hotDeal = TRUE ORDER BY v.price ASC")
-	List<VehicleProjection> findHotDeals();
+	List<VehicleProjection> findByHotDealTrueOrderByPriceAsc();
+
+	List<VehicleProjection> findByVehicleCondition(String condition);
 }
