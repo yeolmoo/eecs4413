@@ -2,11 +2,8 @@ package com.evstore.ecommerce.service;
 
 import java.math.BigDecimal;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.evstore.ecommerce.model.Cart;
-import com.evstore.ecommerce.model.CartItem;
-import com.evstore.ecommerce.model.Vehicle;
+import com.evstore.ecommerce.model.*;
 import com.evstore.ecommerce.repository.CartRepository;
 import com.evstore.ecommerce.repository.VehicleRepository;
 import com.evstore.ecommerce.user.User;
@@ -15,17 +12,12 @@ import com.evstore.ecommerce.userrepository.UserRepository;
 public class CartService {
 
     
-    private UserRepository userRepository;
-    
     private VehicleRepository vehicleRepository;
-
     private CartRepository cartRepository;
 
 
+public Cart getCartFromUser(User user) {
 
-
-public Cart getCartFromUser(Long userID) {
-    User user = userRepository.findById(userID).orElse(null);
     if (user == null){
         throw new RuntimeException("User doesnt exists.");
 
@@ -45,9 +37,9 @@ public Cart getCartFromUser(Long userID) {
 
 
 
-public void addToCart(Long userID, int carID,int quanity){
+public void addToCart(User user, int carID,int quanity){
 
-Cart cart = getCartFromUser(userID);
+Cart cart = getCartFromUser(user);
 
 Vehicle vehicle = vehicleRepository.findById(carID).orElse(null);
 if (vehicle == null){
@@ -94,10 +86,10 @@ cartRepository.save(cart);
 }
 
 
-public void removeFromCart(Long userID, int carID){
+public void removeFromCart(User user, int carID){
 
     // get the cart of the user
-    Cart cart = getCartFromUser(userID);
+    Cart cart = getCartFromUser(user);
     CartItem removeItem = null; 
     
     // loops thru all cartItems till cartItemID matches Id of car im looking for then i will assign that item to varible removeItem
@@ -126,9 +118,5 @@ public void removeFromCart(Long userID, int carID){
 
 }
 
-
-
-
-
-
 }
+

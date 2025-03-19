@@ -1,11 +1,11 @@
 package com.evstore.ecommerce.model;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import com.evstore.ecommerce.user.User;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -29,13 +29,13 @@ public class Cart {
 
 
     @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> cartItems = new HashSet<>();
+    private List<CartItem> cartItems = new ArrayList<>();
 
     public Cart() {
         
     }
 
-    public Cart(int quanity, BigDecimal totalPrice, Set<CartItem> cartItems) {
+    public Cart(int quanity, BigDecimal totalPrice, List<CartItem> cartItems) {
         this.quanity = quanity;
         this.totalPrice = totalPrice;
         this.cartItems = cartItems;
@@ -82,11 +82,11 @@ public class Cart {
    
 
 
-    public Set<CartItem> getCartItems() {
+    public List<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(Set<CartItem> cartItems) {
+    public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
 
