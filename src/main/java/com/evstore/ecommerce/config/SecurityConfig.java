@@ -25,10 +25,10 @@ public class SecurityConfig {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -55,12 +55,12 @@ public class SecurityConfig {
             )
                 .formLogin(login -> login
                         .loginPage("/auth/login")
-                        .defaultSuccessUrl("/home", false)
+                        .defaultSuccessUrl("/", false)
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/auth/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/") // should be a logout confirmation page
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()

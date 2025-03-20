@@ -21,13 +21,11 @@ public class Address {
     private String zip;
     @NotNull
     private String phoneNum;
-    @NotNull
-    private boolean billing;
 
     public Address() {
     }
 
-    public Address(int id, String street, String city, String province, String country, String zip, String phoneNum, boolean billing) {
+    public Address(int id, String street, String city, String province, String country, String zip, String phoneNum) {
         this.id = id;
         this.street = street;
         this.city = city;
@@ -35,7 +33,6 @@ public class Address {
         this.country = country;
         this.zip = zip;
         this.phoneNum = phoneNum;
-        this.billing = billing;
     }
 
     public int getId() {
@@ -92,13 +89,5 @@ public class Address {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
-    }
-
-    public boolean isBilling() {
-        return billing;
-    }
-
-    public void setBilling(boolean billing) {
-        this.billing = billing;
     }
 }

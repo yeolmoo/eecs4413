@@ -31,13 +31,17 @@
                 },
                 body: new URLSearchParams(formData)
             })
-            .then(response => response.text())
-            .then(data => {
-                if (data === "Login successful") {
-                    window.location.href = "/dashboard"; 
-                } else {
-                    document.getElementById("message").textContent = "Login failed. Please try again.";
-                }
+<!--            .then(response => response.text())-->
+<!--            .then(data => {-->
+<!--                if (data === "Login successful") {-->
+<!--                    window.location.href = "/dashboard"; -->
+<!--                } else {-->
+<!--                    document.getElementById("message").textContent = "Login failed. Please try again.";-->
+<!--                }-->
+<!--            })-->
+            .then(response => {
+                if (response.redirected) { window.location.href = response.url; }
+                else { document.getElementById("message").textContent = "Login failed. Please try again."; }
             })
             .catch(error => {
                 console.error("Error:", error);
