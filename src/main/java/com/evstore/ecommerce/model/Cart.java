@@ -1,40 +1,34 @@
 package com.evstore.ecommerce.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
-import com.evstore.ecommerce.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cart") // This maps to MySQL "cart" table
 public class Cart {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    @OneToOne
-    @JoinColumn(name = "user_id",nullable = false)
-    private User user;
-    
-    
-    private int quanity; // total items in cart
-
-    
     private double totalPrice; // total price of all items in cart.
 
-    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CartItem> cartItems = new HashSet<>();
+    @OneToOne
+    @JoinColumn(name = "user_id")
+//    @JsonBackReference
+    private User user;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<CartItem> cartItems;
 
     public Cart() {
-        
     }
 
-    public Cart(int quanity, double totalPrice, Set<CartItem> cartItems) {
-        this.quanity = quanity;
+    public Cart(Long id, User user, double totalPrice, List<CartItem> cartItems) {
+        this.id = id;
+        this.user = user;
         this.totalPrice = totalPrice;
         this.cartItems = cartItems;
     }
@@ -47,7 +41,6 @@ public class Cart {
         this.id = id;
     }
 
-    
     public User getUser() {
         return user;
     }
@@ -55,17 +48,6 @@ public class Cart {
     public void setUser(User user) {
         this.user = user;
     }
-
-    
-
-    public int getQuanity() {
-        return quanity;
-    }
-
-    public void setQuanity(int quanity) {
-        this.quanity = quanity;
-    }
-
 
     public double getTotalPrice() {
         return totalPrice;
@@ -75,15 +57,12 @@ public class Cart {
         this.totalPrice = totalPrice;
     }
 
-
-    public Set<CartItem> getCartItems() {
+    public List<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(Set<CartItem> cartItems) {
+    public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
-
-    
-} 
+}
 

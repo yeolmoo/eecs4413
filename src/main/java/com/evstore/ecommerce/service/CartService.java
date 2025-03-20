@@ -3,11 +3,9 @@ package com.evstore.ecommerce.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.evstore.ecommerce.model.Cart;
-import com.evstore.ecommerce.model.Vehicle;
 import com.evstore.ecommerce.repository.CartRepository;
-import com.evstore.ecommerce.repository.VehicleRepository;
-import com.evstore.ecommerce.user.User;
-import com.evstore.ecommerce.userrepository.UserRepository;
+import com.evstore.ecommerce.repository.CatalogRepository;
+import com.evstore.ecommerce.repository.UserRepository;
 
 public class CartService {
 
@@ -15,7 +13,7 @@ public class CartService {
     private UserRepository userRepository;
     
     @Autowired
-    private VehicleRepository vehicleRepository;
+    private CatalogRepository catalogRepository;
 
     @Autowired
     private CartRepository cartRepository;

@@ -1,7 +1,8 @@
-package com.evstore.ecommerce.userservice;
+package com.evstore.ecommerce.service;
 
 import java.util.Optional;
 
+import com.evstore.ecommerce.model.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.evstore.ecommerce.user.User;
-import com.evstore.ecommerce.userrepository.UserRepository;
+import com.evstore.ecommerce.model.User;
+import com.evstore.ecommerce.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -26,12 +27,13 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(String username, String email, String password) {
-        if (userRepository.existsByUsername(username)) {
-            throw new RuntimeException("User already exists.");
-        }
-        String hashedPassword = passwordEncoder.encode(password); 
-        User user = new User(username, email, hashedPassword, User.Role.USER);
+    public void registerUser(User user) {
+        if (userRepository.existsByUsername(user.getUsername())) throw new RuntimeException("User already exists.");
+        if (userRepository.existsByEmail(user.getEmail())) throw new RuntimeException("Email already exists.");
+        if (!isValidEmail(user.getEmail())) throw new RuntimeException("Invalid email format.");
+
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
         userRepository.save(user);
     }
 
@@ -45,7 +47,7 @@ public class UserService implements UserDetailsService {
     
             if (passwordEncoder.matches(password, user.getPassword())) {
                 session.setAttribute("loggedInUser", user.getUsername());
-                session.setAttribute("userRole", user.getRole().name());
+                //session.setAttribute("userRole", user.getRole().name());
                 return true;
             }
         }
@@ -57,9 +59,15 @@ public class UserService implements UserDetailsService {
         session.invalidate();
     }
 
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        return email.matches(emailRegex);
+    }
   
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+        return new CustomUserDetails(user);
     }
 }
