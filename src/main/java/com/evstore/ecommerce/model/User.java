@@ -22,9 +22,17 @@ public class User {
     @NotNull
     private String password;
 
-    @OneToMany
+//    @OneToMany
+//    @JoinColumn(name = "address_id")
+//    private List<Address> addresses;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id")
-    private List<Address> addresses;
+    private Address shippingAddress;
+
+    // For billing address, make user manually input it
+    // Address can be foreign key to the order entity
+
 
     // Maybe not that necessary
 //    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -34,12 +42,12 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String email, String password, List<Address> addresses /*, Cart cart */) {
+    public User(Long id, String username, String email, String password, Address address /*, Cart cart */) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.addresses = addresses;
+        this.shippingAddress = address;
 //        this.cart = cart;
     }
 
@@ -75,12 +83,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Address> getAddresses() {
-        return addresses;
+    public Address getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
 //    public Cart getCart() {
