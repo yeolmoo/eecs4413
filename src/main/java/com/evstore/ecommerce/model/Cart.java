@@ -1,47 +1,37 @@
 package com.evstore.ecommerce.model;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
-
-import com.evstore.ecommerce.user.User;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cart") // This maps to MySQL "cart" table
 public class Cart {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private double totalPrice; // total price of all items in cart.
 
     @OneToOne
-    @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user_id")
+//    @JsonBackReference
     private User user;
-    
-    
-    private int quanity; // total items in cart
 
-    
-    private BigDecimal totalPrice; // total price of all items in cart.
-
-
-    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItem> cartItems = new ArrayList<>();
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<CartItem> cartItems;
 
     public Cart() {
-        
     }
 
-    public Cart(int quanity, BigDecimal totalPrice, List<CartItem> cartItems) {
-        this.quanity = quanity;
+    public Cart(Long id, User user, double totalPrice, List<CartItem> cartItems) {
+        this.id = id;
+        this.user = user;
         this.totalPrice = totalPrice;
         this.cartItems = cartItems;
     }
-
-   
 
     public Long getId() {
         return id;
@@ -51,7 +41,6 @@ public class Cart {
         this.id = id;
     }
 
-    
     public User getUser() {
         return user;
     }
@@ -60,27 +49,13 @@ public class Cart {
         this.user = user;
     }
 
-    
-
-    public int getQuanity() {
-        return quanity;
-    }
-
-    public void setQuanity(int quanity) {
-        this.quanity = quanity;
-    }
-
-    public BigDecimal getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
-
-
-   
-
 
     public List<CartItem> getCartItems() {
         return cartItems;
@@ -89,7 +64,5 @@ public class Cart {
     public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
-
-    
-} 
+}
 

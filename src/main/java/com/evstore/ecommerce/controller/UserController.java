@@ -1,26 +1,36 @@
 package com.evstore.ecommerce.controller;
 
+import com.evstore.ecommerce.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.evstore.ecommerce.userservice.UserService;
+import com.evstore.ecommerce.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/auth")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
+//    @PostMapping("/register")
+//    public ResponseEntity<String> registerUser(@RequestParam String username, @RequestParam String password) {
+//        userService.registerUser(username, username + "@example.com", password);
+//        return ResponseEntity.ok("User registered successfully.");
+//    }
+
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestParam String username, @RequestParam String password) {
-        userService.registerUser(username, username + "@example.com", password);
-        return ResponseEntity.ok("User registered successfully.");
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        try {
+            userService.registerUser(user);
+            return ResponseEntity.ok("User registered successfully.");
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/login")

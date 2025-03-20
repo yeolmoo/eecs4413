@@ -1,4 +1,4 @@
-package com.evstore.ecommerce.controller;
+package com.evstore.ecommerce.tempControllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

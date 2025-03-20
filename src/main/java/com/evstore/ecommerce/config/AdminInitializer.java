@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.evstore.ecommerce.userservice.UserService;
+import com.evstore.ecommerce.service.UserService;
 
 @Configuration
 public class AdminInitializer {

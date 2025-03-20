@@ -161,6 +161,4 @@ public class CatalogController {
     // Loan calculator
     // Compare Vehicles: Get similar vehicle for comparison
 
-    // Will defer this to Cart api:
-    // Customization options
 }
