@@ -1,6 +1,7 @@
 package com.evstore.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,20 +9,32 @@ import java.util.TreeSet;
 
 @Entity
 public class Vehicle {
+	public interface BasicView {}
+	public interface DetailedView extends BasicView {}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@JsonView(BasicView.class)
 	private String name;
 	private String description;
+	@JsonView(BasicView.class)
 	private String vehicleCondition;
+	@JsonView(BasicView.class)
 	private double price;
 	private int stock;
 	private double mileage;
+	@JsonView(BasicView.class)
 	private String brand;
+	@JsonView(BasicView.class)
 	private String shape;
+	@JsonView(BasicView.class)
 	private String model;
+	@JsonView(BasicView.class)
 	private int modelYear;
+	@JsonView(BasicView.class)
 	private boolean hotDeal;
+	@JsonView(BasicView.class)
 	private double discount;
 	private boolean havingHistory;
 

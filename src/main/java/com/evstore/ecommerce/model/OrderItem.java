@@ -1,42 +1,40 @@
 package com.evstore.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 
 @Entity
-public class CartItem {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Min(1)
     private int quantity;
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id")
+    @JoinColumn(name = "order_id")
     @JsonBackReference
-    private Cart cart;
+    private PurchaseOrder purchaseOrder;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
+//    @JsonView(Vehicle.BasicView.class)
     private Vehicle vehicle;
 
     @ManyToOne
     @JoinColumn(name = "customization_id")
     private Customization customization;
 
-    public CartItem() {
+    public OrderItem() {
     }
 
-    public CartItem(int id, Cart cart, Vehicle vehicle, int quantity, double price, Customization customization) {
+    public OrderItem(int id, int quantity, double price, PurchaseOrder purchaseOrder, Vehicle vehicle, Customization customization) {
         this.id = id;
-        this.cart = cart;
-        this.vehicle = vehicle;
         this.quantity = quantity;
         this.price = price;
+        this.purchaseOrder = purchaseOrder;
+        this.vehicle = vehicle;
         this.customization = customization;
     }
 
@@ -46,22 +44,6 @@ public class CartItem {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 
     public int getQuantity() {
@@ -78,6 +60,22 @@ public class CartItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public Customization getCustomization() {
