@@ -1,15 +1,16 @@
 package com.evstore.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 
 @Entity
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
+    @Min(1)
     private int quantity;
     private double price;
 
@@ -20,29 +21,29 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
-    private Vehicle car;
+    private Vehicle vehicle;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customization_id")
-    private Customization cust;
+    private Customization customization;
 
     public CartItem() {
     }
 
-    public CartItem(Long id, Cart cart, Vehicle car, int quantity, double price, Customization cust) {
+    public CartItem(int id, Cart cart, Vehicle vehicle, int quantity, double price, Customization customization) {
         this.id = id;
         this.cart = cart;
-        this.car = car;
+        this.vehicle = vehicle;
         this.quantity = quantity;
         this.price = price;
-        this.cust = cust;
+        this.customization = customization;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -54,12 +55,12 @@ public class CartItem {
         this.cart = cart;
     }
 
-    public Vehicle getCar() {
-        return car;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setCar(Vehicle car) {
-        this.car = car;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public int getQuantity() {
@@ -78,11 +79,11 @@ public class CartItem {
         this.price = price;
     }
 
-    public Customization getCust() {
-        return cust;
+    public Customization getCustomization() {
+        return customization;
     }
 
-    public void setCust(Customization cust) {
-        this.cust = cust;
+    public void setCustomization(Customization customization) {
+        this.customization = customization;
     }
 }

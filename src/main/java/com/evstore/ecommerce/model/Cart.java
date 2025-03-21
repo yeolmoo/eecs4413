@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -11,33 +12,34 @@ import jakarta.persistence.*;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private double totalPrice; // total price of all items in cart.
 
     @OneToOne
     @JoinColumn(name = "user_id")
 //    @JsonBackReference
+    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<CartItem> cartItems;
 
     public Cart() {
     }
 
-    public Cart(Long id, User user, double totalPrice, List<CartItem> cartItems) {
+    public Cart(int id, User user, double totalPrice, List<CartItem> cartItems) {
         this.id = id;
         this.user = user;
         this.totalPrice = totalPrice;
         this.cartItems = cartItems;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,19 +1,17 @@
 package com.evstore.ecommerce.model;
 
-import java.math.BigDecimal;
-
 // This interface is used to return a subset of fields when getting a set of vehicles
 public interface VehicleProjection {
     int getId();
     String getName();
     String getVehicleCondition();
-    BigDecimal getPrice();
+    double getPrice();
     String getBrand();
     String getShape();
     String getModel();
     int getModelYear();
     boolean getHotDeal();
-    BigDecimal getDiscount();
+    double getDiscount();
     String getVehicleImg();
-    BigDecimal getMileage(); // only used for sorting, not displaying
+    double getMileage(); // only used for sorting, not displaying
 }

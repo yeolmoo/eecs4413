@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Customization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String exteriorColor;
     private String interiorColor;
     private String interiorFabric;
@@ -15,18 +15,18 @@ public class Customization {
     public Customization() {
     }
 
-    public Customization(Long id, String exteriorColor, String interiorColor, String interiorFabric) {
+    public Customization(int id, String exteriorColor, String interiorColor, String interiorFabric) {
         this.id = id;
         this.exteriorColor = exteriorColor;
         this.interiorColor = interiorColor;
         this.interiorFabric = interiorFabric;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

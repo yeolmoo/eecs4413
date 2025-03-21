@@ -33,10 +33,6 @@ public class UserService implements UserDetailsService {
         if (userRepository.existsByEmail(user.getEmail())) throw new RuntimeException("Email already exists.");
         if (!isValidEmail(user.getEmail())) throw new RuntimeException("Invalid email format.");
 
-//        if (user.getShippingAddress() != null) {
-//            Address savedAddress = addressRepository.save(user.getShippingAddress());
-//            user.setShippingAddress(savedAddress);
-//        }
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         userRepository.save(user);

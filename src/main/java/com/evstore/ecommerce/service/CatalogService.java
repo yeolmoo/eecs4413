@@ -124,9 +124,9 @@ public class CatalogService {
 			if (field != null) {
 				field.setAccessible(true);
 				try {
-					if (field.getType().equals(BigDecimal.class) && value instanceof Number) {
-						value = BigDecimal.valueOf(((Number) value).doubleValue());
-					}
+//					if (field.getType().equals(BigDecimal.class) && value instanceof Number) {
+//						value = BigDecimal.valueOf(((Number) value).doubleValue());
+//					}
 					ReflectionUtils.setField(field, vehicle, value);
 				} catch (Exception e) {
 					throw new RuntimeException("Could not update field: " + key, e);

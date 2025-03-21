@@ -2,7 +2,6 @@ package com.evstore.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,15 +14,15 @@ public class Vehicle {
 	private String name;
 	private String description;
 	private String vehicleCondition;
-	private BigDecimal price;
+	private double price;
 	private int stock;
-	private BigDecimal mileage;
+	private double mileage;
 	private String brand;
 	private String shape;
 	private String model;
 	private int modelYear;
 	private boolean hotDeal;
-	private BigDecimal discount; 
+	private double discount;
 	private boolean havingHistory;
 
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
@@ -39,9 +38,9 @@ public class Vehicle {
 	public Vehicle() {
 	}
 
-	public Vehicle(int id, String name, String description, String vehicleCondition, BigDecimal price, int stock,
-			BigDecimal mileage, String brand, String shape, String model, int modelYear, boolean hotDeal,
-			BigDecimal discount, boolean havingHistory, Set<VehicleHistory> histories, Set<CustomerReview> reviews,
+	public Vehicle(int id, String name, String description, String vehicleCondition, double price, int stock,
+			double mileage, String brand, String shape, String model, int modelYear, boolean hotDeal,
+			double discount, boolean havingHistory, Set<VehicleHistory> histories, Set<CustomerReview> reviews,
 			String vehicleImg) {
 		this.id = id;
 		this.name = name;
@@ -94,11 +93,11 @@ public class Vehicle {
 		this.vehicleCondition = vehicleCondition;
 	}
 
-	public BigDecimal getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -110,11 +109,11 @@ public class Vehicle {
 		this.stock = stock;
 	}
 
-	public BigDecimal getMileage() {
+	public double getMileage() {
 		return mileage;
 	}
 
-	public void setMileage(BigDecimal mileage) {
+	public void setMileage(double mileage) {
 		this.mileage = mileage;
 	}
 
@@ -158,11 +157,11 @@ public class Vehicle {
 		this.hotDeal = hotDeal;
 	}
 
-	public BigDecimal getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(BigDecimal discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 

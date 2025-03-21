@@ -11,9 +11,9 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private int id;
     @Column(unique = true)
+    @NotNull
     private String username;
     @Email
     @NotNull
@@ -42,7 +42,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String email, String password, Address address /*, Cart cart */) {
+    public User(int id, String username, String email, String password, Address address /*, Cart cart */) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -51,11 +51,11 @@ public class User {
 //        this.cart = cart;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

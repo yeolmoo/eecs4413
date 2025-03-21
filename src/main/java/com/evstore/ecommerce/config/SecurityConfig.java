@@ -50,7 +50,7 @@ public class SecurityConfig {
 //            )
 //                .authorizeHttpRequests(auth -> auth
 //                        .anyRequest().permitAll())
-                    .requestMatchers("/products").authenticated()
+                    .requestMatchers("/cart/*").authenticated()
                     .anyRequest().permitAll()
             )
                 .formLogin(login -> login
