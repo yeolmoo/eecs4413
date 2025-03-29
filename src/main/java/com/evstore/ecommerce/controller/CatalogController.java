@@ -115,7 +115,7 @@ public class CatalogController {
         }
     }
 
-    // Update any field(s) of vehicle at once (except for reviews and histories)
+    // Update any field(s) of vehicle at once (except for id, reviews and histories)
     @PutMapping("/vehicle/{id}")
     public ResponseEntity<?> updateVehicle(@PathVariable int id, @RequestBody Map<String, Object> updates) {
         Vehicle updatedVehicle = service.updateVehicle(id, updates);

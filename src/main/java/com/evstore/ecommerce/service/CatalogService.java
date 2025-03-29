@@ -119,14 +119,17 @@ public class CatalogService {
 		Vehicle vehicle =  repo.findById(id).orElse(null);
 		if (vehicle == null) return null;
 
+		// Fields that cannot be updated
+		Set<String> restrictedFields = Set.of("id", "reviews", "histories");
+
 		updates.forEach((key, value) -> {
+			if (restrictedFields.contains(key.toLowerCase())) {
+				return; // skip restricted fields
+			}
 			Field field = ReflectionUtils.findField(Vehicle.class, key);
 			if (field != null) {
 				field.setAccessible(true);
 				try {
-//					if (field.getType().equals(BigDecimal.class) && value instanceof Number) {
-//						value = BigDecimal.valueOf(((Number) value).doubleValue());
-//					}
 					ReflectionUtils.setField(field, vehicle, value);
 				} catch (Exception e) {
 					throw new RuntimeException("Could not update field: " + key, e);

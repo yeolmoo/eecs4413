@@ -54,12 +54,12 @@ public class SecurityConfig {
                     .anyRequest().permitAll()
             )
                 .formLogin(login -> login
-                        .loginPage("/auth/login")
+                        .loginPage("/login")
                         .defaultSuccessUrl("/", false)
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/auth/logout")
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/") // should be a logout confirmation page
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
