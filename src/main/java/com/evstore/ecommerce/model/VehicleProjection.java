@@ -5,13 +5,13 @@ public interface VehicleProjection {
     int getId();
     String getName();
     String getVehicleCondition();
-    double getPrice();
+    Double getPrice();
     String getBrand();
     String getShape();
     String getModel();
     int getModelYear();
-    boolean getHotDeal();
-    double getDiscount();
+    Boolean getHotDeal();
+    Double getDiscount();
     String getVehicleImg();
-    double getMileage(); // only used for sorting, not displaying
+    Double getMileage(); // only used for sorting, not displaying
 }

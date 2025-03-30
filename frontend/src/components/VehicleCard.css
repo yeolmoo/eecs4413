@@ -1,0 +1,38 @@
+.vehicle-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    padding: 16px;
+    transition: transform 0.2s ease-in-out;
+    text-align: center;
+  }
+  
+  .vehicle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vehicle-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 12px;
+    border-radius: 8px;
+  }
+  
+  .vehicle-card h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .vehicle-card .text-muted {
+    font-size: 0.9rem;
+  }
+  
+  .vehicle-card .price {
+    font-size: 1.1rem;
+    color: #007bff;
+    font-weight: bold;
+    margin-top: 6px;
+  }

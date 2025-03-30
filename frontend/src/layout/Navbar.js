@@ -1,23 +1,39 @@
-import React from 'react'
+import React from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
-export default function Navbar() {
-    return (
-        <div>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
-                    <a className="navbar-brand" to="/">EVShop</a>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav ms-auto">
-                            <li className="nav-item">
-                                <a className="nav-link" href="/Login">Login</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" to="/register">Register</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+const Navbar = () => {
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    navigate('/login');
+  };
+
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light px-4">
+        <Link className="navbar-brand" to="/">EVShop</Link>
+        <div className="ms-auto d-flex align-items-center gap-3">
+          {!isLoggedIn ? (
+            <>
+              <Link className="btn btn-outline-primary" to="/login">Login</Link>
+              <Link className="btn btn-primary" to="/register">Register</Link>
+            </>
+          ) : (
+            <>
+              <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>
+              <Link to="/cart" className="btn btn-outline-secondary">Cart</Link>
+            </>
+          )}
         </div>
-    )
-}
+      </nav>
+
+      <div className="container mt-4">
+        <Outlet />
+      </div>
+    </>
+  );
+};
+
+export default Navbar;
