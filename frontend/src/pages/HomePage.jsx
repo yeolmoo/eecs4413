@@ -1,10 +1,11 @@
+// HomePage.jsx
 import React from 'react';
 import SearchBar from '../components/SearchBar';
 import HotDealsSection from '../components/HotDealsSection';
 import ReviewsSection from '../components/ReviewsSection';
 import FAB from '../components/FAB';
 
-const HomePage = () => {
+const HomePage = ({ chatOpen, setChatOpen }) => {
   return (
     <>
       <main className="container mt-4">
@@ -12,9 +13,9 @@ const HomePage = () => {
         <hr />
         <HotDealsSection />
         <hr />
-        <ReviewsSection /> 
+        <ReviewsSection />
       </main>
-      <FAB />
+      <FAB isChatOpen={chatOpen} toggleChat={() => setChatOpen(!chatOpen)} />
     </>
   );
 };
