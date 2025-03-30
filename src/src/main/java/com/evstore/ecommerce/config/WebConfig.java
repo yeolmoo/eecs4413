@@ -35,5 +35,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
+                registry.addMapping("/chatbot/**")
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("POST");
     }
-}
+} 
+
+

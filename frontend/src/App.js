@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import CatalogPage from './pages/CatalogPage';
 import Login from './pages/Login';
 import ChatPanel from './components/ChatPanel';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   const [chatOpen, setChatOpen] = useState(false);
@@ -21,6 +22,8 @@ function App() {
           <Route index element={<HomePage chatOpen={chatOpen} setChatOpen={setChatOpen} />} />
           <Route path="catalog" element={<CatalogPage />} />
           <Route path="login" element={<Login />} />
+          <Route path="/register" element={<RegisterPage />} />
+
         </Route>
       </Routes>
     </Router>

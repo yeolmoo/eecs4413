@@ -1,0 +1,73 @@
+
+.register-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff);
+  }
+  
+  .register-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeInUp 0.8s ease-in-out;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .form-input {
+    padding: 12px 18px;
+    border-radius: 0.8rem;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+  }
+  
+  .form-input:focus {
+    border-color: #66a6ff;
+  }
+  
+  .form-button {
+    padding: 12px 18px;
+    border-radius: 0.8rem;
+    border: none;
+    background: #66a6ff;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .form-button:hover {
+    background: #4a90e2;
+  }
+  
+  .error-text {
+    color: #e74c3c;
+    margin-top: -10px;
+    font-size: 0.9rem;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  

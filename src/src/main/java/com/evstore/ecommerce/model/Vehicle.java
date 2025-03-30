@@ -1,19 +1,11 @@
 package com.evstore.ecommerce.model;
 
-import java.math.BigDecimal;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 public class Vehicle {
@@ -43,8 +35,7 @@ public class Vehicle {
 	@JsonView(BasicView.class)
 	private boolean hotDeal;
 	@JsonView(BasicView.class)
-	@Column(precision = 3, scale = 2, nullable = false)
-	private BigDecimal discount;
+	private double discount;
 	private boolean havingHistory;
 
 	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
@@ -62,7 +53,7 @@ public class Vehicle {
 
 	public Vehicle(int id, String name, String description, String vehicleCondition, double price, int stock,
 			double mileage, String brand, String shape, String model, int modelYear, boolean hotDeal,
-			BigDecimal discount, boolean havingHistory, Set<VehicleHistory> histories, Set<CustomerReview> reviews,
+			double discount, boolean havingHistory, Set<VehicleHistory> histories, Set<CustomerReview> reviews,
 			String vehicleImg) {
 		this.id = id;
 		this.name = name;
@@ -179,11 +170,11 @@ public class Vehicle {
 		this.hotDeal = hotDeal;
 	}
 
-	public BigDecimal getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(BigDecimal discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 
