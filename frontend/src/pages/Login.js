@@ -18,6 +18,8 @@ export default function LoginPage() {
         password,
       });
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('isLoggedIn', 'true');
+      window.dispatchEvent(new Event("storage"));
       navigate('/');
     } catch (err) {
       setErrorMsg('Login failed. Please check your credentials.');
