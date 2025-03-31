@@ -1,16 +1,30 @@
 package com.evstore.ecommerce.controller;
 
-import com.evstore.ecommerce.model.*;
-import com.evstore.ecommerce.service.CatalogService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.evstore.ecommerce.model.CustomerReview;
+import com.evstore.ecommerce.model.LoanDetails;
+import com.evstore.ecommerce.model.Vehicle;
+import com.evstore.ecommerce.model.VehicleHistory;
+import com.evstore.ecommerce.model.VehicleProjection;
+import com.evstore.ecommerce.service.CatalogService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/catalog")
@@ -62,8 +76,9 @@ public class CatalogController {
             @RequestParam(required = false) Boolean havingHistory,
             @RequestParam(required = false) String vehicleCondition,
             @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "false") Boolean descending) {
-        return new ResponseEntity<>(service.findByFilters(brand, shape, modelYear, havingHistory, vehicleCondition, sortBy, descending), HttpStatus.OK);
+        return new ResponseEntity<>(service.findByFilters(brand, shape, modelYear, havingHistory, vehicleCondition, sortBy, descending, keyword), HttpStatus.OK);
     }
 
     // Get hot deals

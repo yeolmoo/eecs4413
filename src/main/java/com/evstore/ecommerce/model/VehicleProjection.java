@@ -14,4 +14,6 @@ public interface VehicleProjection {
     Double getDiscount();
     String getVehicleImg();
     Double getMileage(); // only used for sorting, not displaying
+    String getDescription();
+
 }

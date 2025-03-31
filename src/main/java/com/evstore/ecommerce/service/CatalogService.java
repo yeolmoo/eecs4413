@@ -1,5 +1,19 @@
 package com.evstore.ecommerce.service;
 
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
+
 import com.evstore.ecommerce.model.CustomerReview;
 import com.evstore.ecommerce.model.Vehicle;
 import com.evstore.ecommerce.model.VehicleHistory;
@@ -7,15 +21,6 @@ import com.evstore.ecommerce.model.VehicleProjection;
 import com.evstore.ecommerce.repository.CatalogRepository;
 import com.evstore.ecommerce.repository.HistoryRepository;
 import com.evstore.ecommerce.repository.ReviewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class CatalogService {
@@ -71,11 +76,21 @@ public class CatalogService {
 	}
 
 	public List<VehicleProjection> findByFilters(String brand, String shape, Integer modelYear, Boolean havingHistory,
-			String vehicleCondition, String sortBy, Boolean descending) {
+			String vehicleCondition, String sortBy, Boolean descending, String keyword) {
 		List<VehicleProjection> vehicles = repo.findByFilters(brand != null ? brand.toUpperCase() : null,
 				shape != null ? shape.toUpperCase() : null, modelYear, havingHistory,
 				vehicleCondition != null ? vehicleCondition.toUpperCase() : null);
 
+				//keyword filter
+
+				if (keyword != null && !keyword.trim().isEmpty()) {
+					String lowerKeyword = keyword.toLowerCase();
+					vehicles = vehicles.stream()
+						.filter(v -> v.getName().toLowerCase().contains(lowerKeyword)
+								  || v.getDescription().toLowerCase().contains(lowerKeyword))
+						.toList();
+				}
+			
 		// Apply sorting by price/mileage if selected
 		if (sortBy != null) {
 			Comparator<VehicleProjection> comparator = switch (sortBy.toLowerCase()) {

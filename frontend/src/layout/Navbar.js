@@ -20,6 +20,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('token');
+    localStorage.removeItem('chatMessages');
     setIsLoggedIn(false);
     navigate('/login');
   };

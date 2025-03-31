@@ -1,0 +1,61 @@
+.hot-deals-section {
+    position: relative;
+    padding: 0 20px;
+    margin-bottom: 40px;
+  }
+  
+  .carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hot-deals-carousel {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .hot-deal-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  
+  .hot-deals-carousel::-webkit-scrollbar {
+    height: 8px;
+  }
+  .hot-deals-carousel::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  
+  .nav-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 5;
+    font-size: 28px;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 40px;
+    height: 60px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-arrow.left {
+    left: -10px;
+  }
+  
+  .nav-arrow.right {
+    right: -10px;
+  }
+  
+  .nav-arrow:hover {
+    background-color: #f7f7f7;
+  }
+  

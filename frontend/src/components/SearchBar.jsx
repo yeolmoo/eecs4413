@@ -1,19 +1,32 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = () => {
   const [filters, setFilters] = useState({
     brand: '',
     modelYear: '',
     condition: '',
-    keyword: ''
+    keyword: '',
+    sortBy: '',
+    descending: 'false'
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
   const handleSearch = () => {
-    onSearch(filters);
+    const params = new URLSearchParams();
+    if (filters.brand) params.append('brand', filters.brand);
+    if (filters.modelYear) params.append('modelYear', filters.modelYear);
+    if (filters.condition) params.append('vehicleCondition', filters.condition);
+    if (filters.keyword) params.append('keyword', filters.keyword);
+    if (filters.sortBy) params.append('sortBy', filters.sortBy);
+    if (filters.descending) params.append('descending', filters.descending);
+
+    navigate(`/catalog?${params.toString()}`);
   };
 
   return (
@@ -58,6 +71,23 @@ const SearchBar = ({ onSearch }) => {
             placeholder="Description"
             onChange={handleChange}
           />
+        </div>
+
+        <div className="col-md-3">
+          <label>Sort By</label>
+          <select name="sortBy" className="form-select" onChange={handleChange}>
+            <option value="">Default</option>
+            <option value="price">Price</option>
+            <option value="modelYear">Model Year</option>
+          </select>
+        </div>
+
+        <div className="col-md-3">
+          <label>Order</label>
+          <select name="descending" className="form-select" onChange={handleChange}>
+            <option value="false">Ascending</option>
+            <option value="true">Descending</option>
+          </select>
         </div>
 
         <div className="mt-3 text-end">
