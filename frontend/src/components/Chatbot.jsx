@@ -1,7 +1,6 @@
-// src/components/Chatbot.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Chatbot.css'; // 스타일 따로 만들면 좋아
+import './Chatbot.css';
 
 const Chatbot = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -17,10 +16,14 @@ const Chatbot = ({ onClose }) => {
       const response = await axios.post('http://localhost:8080/chatbot/message', null, {
         params: { message: input }
       });
+
       const botMessage = { sender: 'bot', text: response.data };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
-      setMessages(prev => [...prev, { sender: 'bot', text: 'Error: Could not reach server.' }]);
+      setMessages(prev => [
+        ...prev,
+        { sender: 'bot', text: 'Error: Could not reach server.' }
+      ]);
     }
 
     setInput('');
@@ -29,16 +32,26 @@ const Chatbot = ({ onClose }) => {
   return (
     <div className="chatbot-modal">
       <div className="chatbot-box">
-        <button className="btn-close" onClick={onClose}></button>
+        <button className="btn-close" onClick={onClose}>×</button>
+
         <div className="chat-messages">
           {messages.map((msg, i) => (
             <div key={i} className={`chat-message ${msg.sender}`}>
-              {msg.text}
+              <div className="chat-message-label">
+                {msg.sender === 'user' ? 'You' : 'EV Assistant'}
+              </div>
+              <div>{msg.text}</div>
             </div>
           ))}
         </div>
+
         <div className="chat-input">
-          <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()} />
+          <input
+            placeholder="Ask me anything..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+          />
           <button onClick={handleSend}>Send</button>
         </div>
       </div>
