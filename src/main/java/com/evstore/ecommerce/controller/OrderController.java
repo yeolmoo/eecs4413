@@ -1,14 +1,22 @@
 package com.evstore.ecommerce.controller;
-import com.evstore.ecommerce.model.Address;
-import com.evstore.ecommerce.model.PurchaseOrder;
-import com.evstore.ecommerce.service.OrderService;
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-import java.util.List;
+import com.evstore.ecommerce.dto.CheckoutRequestDTO;
+import com.evstore.ecommerce.dto.PurchaseOrderDTO;
+import com.evstore.ecommerce.model.CustomUserDetails;
+import com.evstore.ecommerce.service.OrderService;
+
 
 @RestController
 @RequestMapping("/order")
@@ -17,22 +25,36 @@ public class OrderController {
     private OrderService service;
 
     @PostMapping("/checkout")
-    public ResponseEntity<?> checkout(@RequestBody Address billingAddress, Principal principal) {
+    public ResponseEntity<?> checkout(@RequestBody CheckoutRequestDTO checkoutDTO,
+                                      @AuthenticationPrincipal CustomUserDetails userDetails) {
         try {
-            String message = service.checkout(billingAddress, principal.getName());
-            return ResponseEntity.ok(message);
-        } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            service.processCheckoutForm(checkoutDTO, userDetails.getUser());
+            return ResponseEntity.ok().body("Order placed successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Checkout failed.");
         }
     }
 
+
     // Unique use case: allows users to see their previous orders
+    // @GetMapping("/history")
+    // public ResponseEntity<List<PurchaseOrder>> getOrderHistory(Principal principal) {
+    //     List<PurchaseOrder> history = service.getOrderHistory(principal.getName());
+
+    //     if (history.isEmpty()) return ResponseEntity.noContent().build();
+
+    //     return ResponseEntity.ok(history);
+    // }
     @GetMapping("/history")
-    public ResponseEntity<List<PurchaseOrder>> getOrderHistory(Principal principal) {
-        List<PurchaseOrder> history = service.getOrderHistory(principal.getName());
+public ResponseEntity<List<PurchaseOrderDTO>> getOrderHistory(Principal principal) {
+    List<PurchaseOrderDTO> history = service.getOrderHistory(principal.getName());
 
-        if (history.isEmpty()) return ResponseEntity.noContent().build();
+    System.out.println("Fetched order history for " + principal.getName() + ": " + history.size() + " orders");
 
-        return ResponseEntity.ok(history);
-    }
+    if (history.isEmpty()) return ResponseEntity.noContent().build();
+    return ResponseEntity.ok(history);
+}
+
+
+
 }

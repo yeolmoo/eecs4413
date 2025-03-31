@@ -1,13 +1,19 @@
 package com.evstore.ecommerce.service;
 
-import com.evstore.ecommerce.model.*;
-import com.evstore.ecommerce.repository.CartItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.evstore.ecommerce.model.Cart;
+import com.evstore.ecommerce.model.CartItem;
+import com.evstore.ecommerce.model.CartItemRequest;
+import com.evstore.ecommerce.model.User;
+import com.evstore.ecommerce.model.Vehicle;
+import com.evstore.ecommerce.repository.CartItemRepository;
 import com.evstore.ecommerce.repository.CartRepository;
 import com.evstore.ecommerce.repository.CatalogRepository;
 import com.evstore.ecommerce.repository.UserRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CartService {
@@ -27,11 +33,13 @@ public class CartService {
 
         // Get the user's cart. If it doesn't exist, instantiate a new cart and assign to the user
         Cart cart = cartRepository.findByUser(user)
-                .orElseGet(() -> {
-                    Cart newCart = new Cart();
-                    newCart.setUser(user);
-                    return cartRepository.save(newCart);
-                });
+                 .orElseGet(() -> {
+                Cart newCart = new Cart();
+                newCart.setUser(user);
+                newCart.setCartItems(new ArrayList<>()); 
+                return cartRepository.save(newCart);
+            });
+
 
         // Find vehicle that user is requesting to add to cart
         Vehicle vehicle = catalogRepository.findById(request.getVehicleId())
@@ -46,6 +54,9 @@ public class CartService {
         cartItem.setCustomization(request.getCustomization());
         cartItemRepository.save(cartItem);
 
+        if (cart.getCartItems() == null) {
+            cart.setCartItems(new ArrayList<>()); 
+        }
         // Add CartItem to Cart's collection (in-memory)
         cart.getCartItems().add(cartItem);
 

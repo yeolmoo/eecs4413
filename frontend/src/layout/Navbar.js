@@ -31,16 +31,19 @@ const Navbar = () => {
         <Link className="navbar-brand" to="/">EVShop</Link>
 
         <div className="ms-auto d-flex align-items-center gap-3">
-          <Link to="/cart" className="btn btn-outline-secondary">Cart</Link>
+        <Link to="/cart" className="btn btn-outline-secondary">Cart</Link>
+        <button className="btn btn-outline-success" onClick={() => setShowCalculator(true)}>Loan Calculator</button>
+
 
           {!isLoggedIn ? (
             <>
               <Link className="btn btn-outline-primary" to="/login">Login</Link>
               <Link className="btn btn-primary" to="/register">Register</Link>
-              <button className="btn btn-outline-success" onClick={() => setShowCalculator(true)}>Loan Calculator</button>
+              
             </>
           ) : (
             <>
+             <Link className="btn btn-outline-info" to="/order-history">Order History</Link>
               <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>
             </>
           )}

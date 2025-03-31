@@ -10,3 +10,29 @@
   align-items: center;
   justify-content: center;
 }
+
+.loan-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.loan-close-btn:hover {
+  color: #000;
+  transform: scale(1.1);
+}
+
+.loan-calculator {
+  position: relative; 
+  max-width: 500px;
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+}

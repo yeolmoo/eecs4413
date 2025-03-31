@@ -1,12 +1,13 @@
 package com.evstore.ecommerce.repository;
 
-import com.evstore.ecommerce.model.PurchaseOrder;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.evstore.ecommerce.model.PurchaseOrder;
 
 @Repository
-public interface OrderRepository extends JpaRepository<PurchaseOrder, Integer>  {
-    List<PurchaseOrder> findByUserUsernameOrderByOrderDateDesc(String username);
+public interface OrderRepository extends JpaRepository<PurchaseOrder, Integer> {
+    List<PurchaseOrder> findByUserUsernameOrderByOrderDateDesc(String username); 
 }

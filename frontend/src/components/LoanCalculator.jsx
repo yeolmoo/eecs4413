@@ -28,10 +28,12 @@ const LoanCalculator = ({ onClose }) => {
   return (
     <div className="loan-calculator card p-4 shadow-sm position-relative">
       <button
-        className="btn-close position-absolute top-0 end-0 m-3"
-        onClick={onClose}
-        aria-label="Close"
-      ></button>
+  className="loan-close-btn"
+  onClick={onClose}
+  aria-label="Close"
+>
+  &times;
+</button>
 
       <h3 className="mb-4">Loan Calculator</h3>
 

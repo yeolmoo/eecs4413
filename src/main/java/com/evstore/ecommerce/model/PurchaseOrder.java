@@ -1,11 +1,22 @@
 package com.evstore.ecommerce.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.List;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class PurchaseOrder {
@@ -14,27 +25,28 @@ public class PurchaseOrder {
     private int id;
     private double totalPrice;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+    
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+@JsonManagedReference
+private List<OrderItem> orderItems;
 
-    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<OrderItem> orderItems;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "address_id")
     private Address billingAddress;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date orderDate;
+    private LocalDateTime orderDate;
     private String status = "PENDING";
 
     public PurchaseOrder() {
     }
 
-    public PurchaseOrder(int id, double totalPrice, User user, List<OrderItem> orderItems, Date orderDate, String status) {
+    public PurchaseOrder(int id, double totalPrice, User user, List<OrderItem> orderItems, LocalDateTime orderDate, String status) {
         this.id = id;
         this.totalPrice = totalPrice;
         this.user = user;
@@ -75,11 +87,11 @@ public class PurchaseOrder {
         this.orderItems = orderItems;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 

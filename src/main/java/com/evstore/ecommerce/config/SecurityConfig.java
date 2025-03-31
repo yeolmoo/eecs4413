@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**",  "/auth/**",
                         "/catalog/**",
                         "/chatbot/**").permitAll()
+                        .requestMatchers("/reviews/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
