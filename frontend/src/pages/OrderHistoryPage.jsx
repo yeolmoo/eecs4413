@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from "../api";
 import { useLocation } from 'react-router-dom';
 
 const OrderHistoryPage = () => {
@@ -12,7 +12,7 @@ const OrderHistoryPage = () => {
     if (newOrder) {
       setOrders([newOrder]); // show just the recent one
     } else {
-      axios.get('http://localhost:8080/order/history', {
+      api.get('/order/history'), {
         headers: { Authorization: `Bearer ${token}` }
       }).then(res => {
         setOrders(res.data);

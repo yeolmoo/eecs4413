@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import api from "../api";
 import VehicleCard from './VehicleCard';
 import './HotDealsSection.css';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ const HotDealsSection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8080/catalog/vehicles')
+    api.get('/catalog/vehicles'))
       .then(res => {
         const filtered = res.data.filter(v => v.hotDeal === true);
         setHotDeals(filtered);

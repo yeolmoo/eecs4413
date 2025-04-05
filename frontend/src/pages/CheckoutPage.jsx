@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from "../api";
 import { useNavigate } from 'react-router-dom';
 
 const CheckoutPage = () => {
@@ -31,7 +31,7 @@ const CheckoutPage = () => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:8080/order/checkout', billingInfo, {
+      await api.post('/order/checkout'), billingInfo, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

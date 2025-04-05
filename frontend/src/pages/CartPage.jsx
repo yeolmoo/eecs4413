@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from "../api";
 import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
@@ -9,7 +9,7 @@ const CartPage = () => {
   const token = localStorage.getItem('token');
 
   const fetchCart = () => {
-    axios.get('http://localhost:8080/cart', {
+    api.get('/cart'), {
       headers: { Authorization: `Bearer ${token}` }
     }).then(res => {
       setCart(res.data);

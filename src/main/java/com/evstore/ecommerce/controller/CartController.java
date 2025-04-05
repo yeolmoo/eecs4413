@@ -19,7 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.evstore.ecommerce.model.CartItemRequest;
 import com.evstore.ecommerce.service.CartService;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(
+    origins = {
+        "http://localhost:3000",
+        "http://localhost:3002",
+        "https://eecs-evstore.netlify.app"
+    },
+    allowCredentials = "true"
+)
 @RestController
 @RequestMapping("/cart")
 public class CartController {

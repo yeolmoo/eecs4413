@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from "../api";
 
 const ReviewsSection = ({ vehicleId }) => {
   const [reviews, setReviews] = useState([]);

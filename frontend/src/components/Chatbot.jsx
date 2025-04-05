@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from "../api";
 import './Chatbot.css';
 
 const Chatbot = ({ onClose }) => {
@@ -22,7 +22,7 @@ const Chatbot = ({ onClose }) => {
     setMessages(prev => [...prev, userMessage]);
 
     try {
-      const response = await axios.post('http://localhost:8080/chatbot/message', null, {
+      const response = await api.post('/chatbot/message'), null, {
         params: { message: input }
       });
 

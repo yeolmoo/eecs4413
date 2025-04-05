@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from "../api";
 import SubmitReview from './SubmitReview';
 import ReviewsSection from './ReviewsSection';
 
@@ -33,8 +33,7 @@ const VehicleDetail = () => {
     }
 
     try {
-      await axios.post(
-        'http://localhost:8080/cart/add',
+      await api.post('/cart/add'),
         {
           vehicleId: vehicle.id,
           quantity: 1,

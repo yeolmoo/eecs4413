@@ -20,9 +20,18 @@ import com.evstore.ecommerce.dto.RegisterRequest;
 import com.evstore.ecommerce.model.User;
 import com.evstore.ecommerce.repository.UserRepository;
 
+
+
+@CrossOrigin(
+    origins = {
+        "http://localhost:3000",
+        "http://localhost:3002",
+        "https://eecs-evstore.netlify.app"
+    },
+    allowCredentials = "true"
+)
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000") 
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
