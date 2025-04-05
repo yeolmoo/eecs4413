@@ -29,6 +29,12 @@ How to Run:
    mvn clean package
    java -jar target/ecommerce-0.0.1-SNAPSHOT.jar
 
+5. Front end:
+   Create a `.env` file in the root of your frontend folder:
+   Then, replace the placeholder with your actual backend server URL, e.g.: REACT_APP_API_BASE_URL=https://34.202.116.9.sslip.io
+   If you're using Vite instead of CRA, use:
+   VITE_API_BASE_URL=https://34.202.116.9.sslip.io
+
 =============================================================
 
 Notes:
