@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+
 import VehicleCard from './VehicleCard';
 import './HotDealsSection.css';
 import { useNavigate } from 'react-router-dom';

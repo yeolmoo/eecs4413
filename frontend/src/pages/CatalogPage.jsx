@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import VehicleCard from '../components/VehicleCard';
 import SearchBar from '../components/SearchBar';
 import { useSearchParams } from 'react-router-dom';
