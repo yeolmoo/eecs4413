@@ -5,6 +5,8 @@ Netlify (Frontend) : https://eecs-evstore.netlify.app
 
 EC2 (Backend) : https://34.202.116.9.sslip.io
 
+Link to demo : https://youtu.be/eC0Jc8rp214
+
 Features
 - JWT-based Login/Signup
 - Vehicle Catalog (filter/sort/search)
