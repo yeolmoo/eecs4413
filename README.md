@@ -46,4 +46,4 @@ Certbot used for SSL set up
 
 Dont forget to add MySQL credential, OPENAI API key (openai.api.key) and jwt seceret key (app.jwt.secret) must be set in application.properties.
 
-Please contact via email if you need the file or need backend server running => hongseu4@gmail.com
+Please contact via email if you need the file or need backend server running => hongseu4@my.yorku.ca
