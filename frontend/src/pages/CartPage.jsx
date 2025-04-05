@@ -9,19 +9,20 @@ const CartPage = () => {
 
   const token = localStorage.getItem('token');
 
-  const fetchCart = () => {
-    api.get('/cart', {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => {
-      setCart(res.data);
-    }).catch(err => {
-      console.error('Failed to load cart:', err);
-    });
-  };
+const fetchCart = useCallback(() => {
+  api.get('/cart', {
+    headers: { Authorization: `Bearer ${token}` }
+  }).then(res => {
+    setCart(res.data);
+  }).catch(err => {
+    console.error('Failed to load cart:', err);
+  });
+}, [token]);
 
-  useEffect(() => {
-    fetchCart();
+useEffect(() => {
+  fetchCart();
 }, [fetchCart]);
+
 
   const removeFromCart = (cartItemId) => {
     api.delete(`/cart/remove/${cartItemId}`, {
