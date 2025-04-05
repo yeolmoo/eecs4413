@@ -33,4 +33,7 @@ backend hosted on AWS EC2 (HTTPS + nginx)
 
 Certbot used for SSL set up
 
+
+Dont forget to add
+
 OPENAI API key (openai.api.key) and jwt seceret key (app.jwt.secret) is stored in application.properties
