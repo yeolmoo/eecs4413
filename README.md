@@ -20,10 +20,14 @@ Features
 How to Run:
 
 1. Clone the repo
-2. Backend
-	cd eecs4413 mvn spring-boot:run
-3. Frontend
-	cd frontend npm install npm run dev
+2. Copy `application.properties.example` → `application.properties`
+3. Fill in:
+   - DB username/password
+   - OpenAI API key
+   - JWT secret (at least 32 characters)
+4. Run the backend:
+   mvn clean package
+   java -jar target/ecommerce-0.0.1-SNAPSHOT.jar
 
 =============================================================
 
