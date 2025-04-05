@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import api from "../api";
+import axios from 'axios';
 import VehicleCard from '../components/VehicleCard';
+import api from '../api';
 
 const HotDealsPage = () => {
   const [hotDeals, setHotDeals] = useState([]);
 
   useEffect(() => {
-    api.get('/catalog/vehicles'))
+    api.get('/catalog/vehicles')
       .then(res => {
         const filtered = res.data.filter(v => v.hotDeal === true);
         console.log('🔥 Hot Deals fetched:', filtered); 

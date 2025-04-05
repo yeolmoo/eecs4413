@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import api from "../api";
+import axios from 'axios';
 import './SubmitReview.css';
+import api from '../api';
 
 const SubmitReview = ({ vehicleId, onReviewSubmitted }) => {
   const [rating, setRating] = useState(0);
@@ -13,7 +14,7 @@ const SubmitReview = ({ vehicleId, onReviewSubmitted }) => {
     try {
       const token = localStorage.getItem('token');
 
-      await axios.post(`http://localhost:8080/reviews/${vehicleId}`, {
+      await api.post(`/reviews/${vehicleId}`, {
         rating,
         reviewText,
       }, {

@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import api from "../api";
+import axios from 'axios';
 import SubmitReview from './SubmitReview';
 import ReviewsSection from './ReviewsSection';
 
+import api from '../api';
 
 const VehicleDetail = () => {
   const { id } = useParams(); // /vehicle/:id
@@ -16,7 +17,7 @@ const VehicleDetail = () => {
 
     const fetchVehicle = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/catalog/vehicle/${id}`);
+        const res = await api.get(`/catalog/vehicle/${id}`);
         setVehicle(res.data);
       } catch (err) {
         console.error('Failed to load vehicle', err);
@@ -33,7 +34,8 @@ const VehicleDetail = () => {
     }
 
     try {
-      await api.post('/cart/add'),
+      await api.post(
+        '/cart/add',
         {
           vehicleId: vehicle.id,
           quantity: 1,

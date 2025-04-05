@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import api from "../api";
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; 
+import api from '../api';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -13,7 +14,7 @@ export default function LoginPage() {
     e.preventDefault();
     setErrorMsg('');
     try {
-      const response = await api.post('/auth/login'), {
+      const response = await api.post('/auth/login', {
         username,
         password,
       });

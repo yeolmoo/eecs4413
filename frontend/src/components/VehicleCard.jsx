@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './VehicleCard.css';
-import api from "../api";
+import axios from 'axios';
+import api from '../api';
 
 const VehicleCard = ({ vehicle }) => {
   const navigate = useNavigate(); 
@@ -18,7 +19,7 @@ const VehicleCard = ({ vehicle }) => {
       return;
     }
 
-    api.post('/cart/add'), {
+    api.post('/cart/add', {
       vehicleId: vehicle.id,
       quantity: 1,
       customization: null

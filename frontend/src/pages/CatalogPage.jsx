@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import api from "../api";
+import axios from 'axios';
 import VehicleCard from '../components/VehicleCard';
 import SearchBar from '../components/SearchBar';
 import { useSearchParams } from 'react-router-dom';
+import api from '../api';
 
 const CatalogPage = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -26,7 +27,7 @@ const CatalogPage = () => {
       if (sortBy) params.append('sortBy', sortBy);
       if (descending) params.append('descending', descending);
 
-      axios.get(`http://localhost:8080/catalog/search?${params.toString()}`)
+      api.get(`/catalog/search?${params.toString()}`)
         .then(res => {
           console.log('Filtered vehicle data:', res.data);
           setVehicles(res.data);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import api from "../api";
+import axios from 'axios';
+import api from '../api';
 
 const ReviewsSection = ({ vehicleId }) => {
   const [reviews, setReviews] = useState([]);
@@ -9,7 +10,7 @@ const ReviewsSection = ({ vehicleId }) => {
 
     const fetchReviews = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/catalog/vehicle/${vehicleId}`);
+        const res = await api.get(`/catalog/vehicle/${vehicleId}`);
         const sorted = res.data.reviews.sort((a, b) => new Date(b.reviewDate) - new Date(a.reviewDate));
         setReviews(sorted.slice(0, 5));
       } catch (err) {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import api from "../api";
+import axios from 'axios';
 import VehicleCard from './VehicleCard';
 import './HotDealsSection.css';
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
 const HotDealsSection = () => {
   const [hotDeals, setHotDeals] = useState([]);
@@ -10,7 +11,7 @@ const HotDealsSection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get('/catalog/vehicles'))
+    api.get('/catalog/vehicles')
       .then(res => {
         const filtered = res.data.filter(v => v.hotDeal === true);
         setHotDeals(filtered);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import api from "../api";
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
 const CartPage = () => {
   const [cart, setCart] = useState(null);
@@ -9,7 +10,7 @@ const CartPage = () => {
   const token = localStorage.getItem('token');
 
   const fetchCart = () => {
-    api.get('/cart'), {
+    api.get('/cart', {
       headers: { Authorization: `Bearer ${token}` }
     }).then(res => {
       setCart(res.data);
@@ -23,7 +24,7 @@ const CartPage = () => {
 }, [fetchCart]);
 
   const removeFromCart = (cartItemId) => {
-    axios.delete(`http://localhost:8080/cart/remove/${cartItemId}`, {
+    api.delete(`/cart/remove/${cartItemId}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(() => {
       fetchCart();
@@ -31,7 +32,7 @@ const CartPage = () => {
   };
 
   const updateQuantity = (cartItemId, quantity) => {
-    axios.put(`http://localhost:8080/cart/editQuantity/${cartItemId}?quantity=${quantity}`, null, {
+    api.put(`/cart/editQuantity/${cartItemId}?quantity=${quantity}`, null, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(() => {
       fetchCart();

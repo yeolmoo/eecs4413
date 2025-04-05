@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import api from "../api";
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './RegisterPage.css';
+import api from '../api';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -15,7 +16,7 @@ function RegisterPage() {
     setErrorMsg('');
 
     try {
-      await api.post('/auth/register'), {
+      await api.post('/auth/register', {
         username,
         email,
         password,
