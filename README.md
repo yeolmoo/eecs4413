@@ -34,6 +34,8 @@ How to Run:
    Then, replace the placeholder with your actual backend server URL, e.g.: REACT_APP_API_BASE_URL=https://34.202.116.9.sslip.io
    If you're using Vite instead of CRA, use:
    VITE_API_BASE_URL=https://34.202.116.9.sslip.io
+   npm install
+   npm start
 
 =============================================================
 
